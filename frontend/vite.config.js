@@ -5,6 +5,9 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  root: "./src",
-  input: path.resolve(__dirname, "src/index.html"),
+  plugins: [react()],
+  root: ".", // Make sure it's the correct root directory
+  build: {
+    outDir: "dist",
+  },
 });
