@@ -24,7 +24,7 @@ public class Pack {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID )
     private UUID id;
 
     @Column(nullable = false)
@@ -49,6 +49,7 @@ public class Pack {
     private Client client;
 
     @OneToMany(mappedBy = "pack",cascade = CascadeType.ALL , orphanRemoval = true)
+    @JsonBackReference
     private List<Offer> offers = new ArrayList<>();
 
 

@@ -1,5 +1,7 @@
 package com.sfar.livrili.Domains.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,6 +27,9 @@ public class Offer {
     @Column(nullable = false)
     private Double price;
 
+    @Column(nullable = false)
+    private Integer daysToGetDelivered;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OfferStatus status;
@@ -39,11 +44,13 @@ public class Offer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_guy_id" , nullable = false)
+    @JsonManagedReference
     DeliveryPerson deliveryPerson;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pack_id", nullable = false )
+    @JsonManagedReference
     Pack pack;
 
     @PrePersist
