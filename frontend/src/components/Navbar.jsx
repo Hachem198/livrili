@@ -6,13 +6,12 @@ import CompanyLogo from "../assets/CompanyLogo.png";
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close mobile menu when a link is clicked
   const handleLinkClick = () => {
     setIsOpen(false);
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-opacity-90 bg-black flex items-center justify-between py-4 px-4 md:px-10 text-white shadow-md">
+    <nav className="top-0 left-0 w-full z-50 bg-opacity-90 bg-black flex items-center justify-between py-4 px-4 md:px-10 text-white shadow-md">
       {/*Desktop View*/}
       <div className="flex items-center">
         <Link to="/" className="ml-4">
@@ -25,8 +24,11 @@ export const Navbar = () => {
       </div>
 
       <div className="hidden md:flex items-center absolute  left-1/2 transform -translate-x-1/2">
-        <nav className="flex space-x-10 mr-8">
-          <Link className="hover:text-gray-300 transition-colors duration-300">
+        <nav className="flex lg:space-x-10 sm:space-x-4 mr-10">
+          <Link
+            to="/services"
+            className="hover:text-gray-300 transition-colors duration-300"
+          >
             Services
           </Link>
           <Link className="hover:text-gray-300 transition-colors duration-300">

@@ -8,7 +8,6 @@ export const Home = () => {
     <>
       <AllUsersHeroSection></AllUsersHeroSection>
       <CommentCaMarcheSection></CommentCaMarcheSection>
-      <Footer></Footer>
     </>
   );
 };

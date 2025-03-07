@@ -69,7 +69,7 @@ export const CommentCaMarcheSection = () => {
   ];
 
   return (
-    <section className="py-20 border-b border-neutral-700">
+    <section className="py-20 ">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-4 text-white">
           Comment ça marche?

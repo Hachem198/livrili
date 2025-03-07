@@ -5,7 +5,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  root: ".", // Make sure it's the correct root directory
+  root: ".",
   build: {
     outDir: "dist",
   },
