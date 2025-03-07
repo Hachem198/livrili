@@ -45,10 +45,11 @@ export const Services = () => {
           <img
             src={deliveryPhoto}
             alt="Livrili Delivery Service"
-            className="w-full h-auto max-w-md rounded-3xl object-cover"
+            className="w-full h-auto max-w-md rounded-3xl shadow-lg object-cover"
           />
         </div>
       </div>
+
       <div className="text-center my-12">
         <h2 className="bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-transparent inline-block">
           Services de Livrili
@@ -56,13 +57,14 @@ export const Services = () => {
       </div>
 
       {/* Services Cards */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+      <div className="flex justify-center flex-wrap space-x-4 space-y-4">
         {services.map((service, index) => (
-          <ServiceCard
-            key={index}
-            service={service.type}
-            description={service.description}
-          />
+          <div key={index}>
+            <ServiceCard
+              service={service.type}
+              description={service.description}
+            />
+          </div>
         ))}
       </div>
     </div>

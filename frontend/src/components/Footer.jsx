@@ -67,7 +67,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-12 pt-8 text-sm text-center">
-          © 2024 TransportTN. Tous droits réservés.
+          © 2024 Livrili. Tous droits réservés.
         </div>
       </div>
     </footer>

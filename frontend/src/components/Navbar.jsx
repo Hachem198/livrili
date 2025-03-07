@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import CompanyLogo from "../assets/CompanyLogo.png";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleScroll = () => {
+    navigate("/#how-it-works");
+  };
 
   const handleLinkClick = () => {
     setIsOpen(false);
@@ -31,7 +37,10 @@ export const Navbar = () => {
           >
             Services
           </Link>
-          <Link className="hover:text-gray-300 transition-colors duration-300">
+          <Link
+            className="hover:text-gray-300 transition-colors duration-300"
+            onClick={handleScroll}
+          >
             Comment ça marche
           </Link>
           <Link className="hover:text-gray-300 transition-colors duration-300">

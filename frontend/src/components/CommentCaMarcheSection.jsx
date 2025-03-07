@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Truck,
   Star,
@@ -10,8 +10,11 @@ import {
   Navigation,
 } from "lucide-react";
 import { ProcessCard } from "./ProcessCard";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 export const CommentCaMarcheSection = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("clients");
 
   const clientProcess = [
@@ -40,7 +43,14 @@ export const CommentCaMarcheSection = () => {
         "Suivez votre transport en temps réel et recevez des notifications à chaque étape.",
     },
   ];
-
+  useEffect(() => {
+    if (location.hash === "#how-it-works") {
+      const section = document.getElementById("how-it-works");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]); // Runs when the location changes
   const deliveryProcess = [
     {
       icon: Truck,
@@ -69,8 +79,8 @@ export const CommentCaMarcheSection = () => {
   ];
 
   return (
-    <section className="py-20 ">
-      <div className="container mx-auto px-6">
+    <section id="how-it-works" className="py-20 ">
+      <div className="container mx-auto px-6 ">
         <h2 className="text-3xl font-bold text-center mb-4 text-white">
           Comment ça marche?
         </h2>
