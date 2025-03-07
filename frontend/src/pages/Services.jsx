@@ -57,7 +57,7 @@ export const Services = () => {
       </div>
 
       {/* Services Cards */}
-      <div className="flex justify-center flex-wrap space-x-4 space-y-4">
+      <div className="flex justify-center flex-wrap space-x-4 space-y-4 ml-4">
         {services.map((service, index) => (
           <div key={index}>
             <ServiceCard
