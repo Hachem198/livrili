@@ -1,13 +1,11 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React from "react";
 import { Layout } from "./Layout";
 import { Home } from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
-import "./index.css";
 import { Services } from "./pages/Services";
-import { Signup } from "./pages/SignUp";
+import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
+import "./index.css";
 
 function App() {
   return (
