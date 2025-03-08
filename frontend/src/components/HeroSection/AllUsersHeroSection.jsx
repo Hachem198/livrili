@@ -6,7 +6,7 @@ import StatsCarousel from "../StatsCarousel";
 
 export const AllUsersHeroSection = () => {
   return (
-    <div className="px-4 md:px-10 max-w-7xl mx-auto">
+    <div className=" px-4 md:px-10 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <div className="w-full md:w-1/2">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-white">

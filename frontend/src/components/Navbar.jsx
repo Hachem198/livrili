@@ -2,19 +2,28 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import CompanyLogo from "../assets/CompanyLogo.png";
-import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
 
-  const handleScroll = () => {
-    navigate("/#how-it-works");
-  };
-
+  /*const handleScrollPhone = () => {
+    const offset = 2300; // Adjust this value as needed
+    window.scrollTo({
+      top: document.body.scrollHeight - offset,
+      behavior: "smooth",
+    });
+  };*/
   const handleLinkClick = () => {
     setIsOpen(false);
   };
+
+  // Combined function to both close menu and scroll
+  /*const handleLinkClickAndScroll = () => {
+    setIsOpen(false);
+    setTimeout(() => {
+      handleScrollPhone();
+    }, 100);
+  };*/
 
   return (
     <nav className="top-0 left-0 w-full z-50 bg-opacity-90 bg-black flex items-center justify-between py-4 px-4 md:px-10 text-white shadow-md">
@@ -29,7 +38,7 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <div className="hidden md:flex items-center absolute  left-1/2 transform -translate-x-1/2">
+      <div className="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
         <nav className="flex lg:space-x-10 sm:space-x-4 mr-10">
           <Link
             to="/services"
@@ -39,72 +48,80 @@ export const Navbar = () => {
           </Link>
           <Link
             className="hover:text-gray-300 transition-colors duration-300"
-            onClick={handleScroll}
+            onClick={handleLinkClick}
           >
             Comment ça marche
           </Link>
-          <Link className="hover:text-gray-300 transition-colors duration-300">
+          <Link
+            to="/contact"
+            className="hover:text-gray-300 transition-colors duration-300"
+          >
             Contact
           </Link>
         </nav>
       </div>
 
-      <div className="flex items-center gap-4">
-        <Link className="border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out">
+      <div className="hidden md:flex items-center gap-4">
+        <Link
+          to="/login"
+          className="border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+        >
           Login
         </Link>
-        <Link className="border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out">
+        <Link
+          to="/signup"
+          className="border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+        >
           Sign up
         </Link>
       </div>
 
       {/* Mobile View */}
       <button
-        className="md:hidden p-2 z-60"
+        className="md:hidden p-2 z-50 relative"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-        {isOpen ? <X size={30} /> : <Menu size={30} />}
+        {isOpen ? <X size={30} color="white" /> : <Menu size={30} />}
       </button>
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-90 md:hidden "
-          onClick={handleLinkClick}
+          className="fixed inset-0 bg-black bg-opacity-90 md:hidden z-40 overflow-auto"
+          onClick={(e) => e.target === e.currentTarget && handleLinkClick()}
         >
-          <div className="flex flex-col items-center justify-center h-full space-y-8 text-2xl">
+          <div className="flex flex-col items-center justify-center h-full space-y-8 text-2xl text-white p-6">
             <Link
               to="/services"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className="hover:text-gray-300 transition-colors duration-300 w-full text-center py-2"
               onClick={handleLinkClick}
             >
               Services
             </Link>
             <Link
-              to="/how-it-works"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className="hover:text-gray-300 transition-colors duration-300 w-full text-center py-2"
               onClick={handleLinkClick}
             >
               Comment ça marche
             </Link>
             <Link
               to="/contact"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className="hover:text-gray-300 transition-colors duration-300 w-full text-center py-2"
               onClick={handleLinkClick}
             >
               Contact
             </Link>
-            <div className="flex flex-col space-y-4 pt-8">
+            <div className="flex flex-col space-y-4 pt-8 w-full max-w-xs">
               <Link
                 to="/login"
-                className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out w-full text-center"
                 onClick={handleLinkClick}
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition-all duration-300 ease-in-out w-full text-center"
                 onClick={handleLinkClick}
               >
                 Sign up

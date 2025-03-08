@@ -10,11 +10,8 @@ import {
   Navigation,
 } from "lucide-react";
 import { ProcessCard } from "./ProcessCard";
-import { useRef } from "react";
-import { useLocation } from "react-router-dom";
 
 export const CommentCaMarcheSection = () => {
-  const location = useLocation();
   const [activeTab, setActiveTab] = useState("clients");
 
   const clientProcess = [
@@ -43,14 +40,7 @@ export const CommentCaMarcheSection = () => {
         "Suivez votre transport en temps réel et recevez des notifications à chaque étape.",
     },
   ];
-  useEffect(() => {
-    if (location.hash === "#how-it-works") {
-      const section = document.getElementById("how-it-works");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }, [location]); // Runs when the location changes
+
   const deliveryProcess = [
     {
       icon: Truck,
