@@ -19,7 +19,7 @@ public class ApprovedPackDto {
 
     private String packDescription;
 
-    private String packWeight;
+    private float packWeight;
 
     private String packPickUpLocation;
 
@@ -36,6 +36,10 @@ public class ApprovedPackDto {
     OfferResDto offer;
 
     private String deliveryGuyName;
+
+    private Float deliveryGuyRating;
+
+    private int deliveryGuyRatingCount;
 
     private String deliveryGuyPhone;
 

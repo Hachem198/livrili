@@ -55,7 +55,7 @@ public class ErrorController {
         if (ex.getMessage().contains("Role")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role provided.");
         }else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid gender provided.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Role provided.");
         }
     }
     @ExceptionHandler(IllegalStateException.class)
