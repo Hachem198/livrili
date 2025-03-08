@@ -2,28 +2,31 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import CompanyLogo from "../assets/CompanyLogo.png";
+import scrollStore from "../store/scrollStore/scrollStore";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  /*const handleScrollPhone = () => {
-    const offset = 2300; // Adjust this value as needed
-    window.scrollTo({
-      top: document.body.scrollHeight - offset,
-      behavior: "smooth",
-    });
-  };*/
+  const handleScrollToContact = () => {
+    setIsOpen(false);
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100);
+  };
   const handleLinkClick = () => {
     setIsOpen(false);
   };
 
   // Combined function to both close menu and scroll
-  /*const handleLinkClickAndScroll = () => {
+  const handleLinkClickAndScrollToCommentCaMarche = () => {
     setIsOpen(false);
     setTimeout(() => {
-      handleScrollPhone();
+      scrollStore.scrollToHowItWorks();
     }, 100);
-  };*/
+  };
 
   return (
     <nav className="top-0 left-0 w-full z-50 bg-opacity-90 bg-black flex items-center justify-between py-4 px-4 md:px-10 text-white shadow-md">
@@ -48,13 +51,13 @@ export const Navbar = () => {
           </Link>
           <Link
             className="hover:text-gray-300 transition-colors duration-300"
-            onClick={handleLinkClick}
+            onClick={handleLinkClickAndScrollToCommentCaMarche}
           >
             Comment ça marche
           </Link>
           <Link
-            to="/contact"
             className="hover:text-gray-300 transition-colors duration-300"
+            onClick={handleScrollToContact}
           >
             Contact
           </Link>
@@ -100,14 +103,13 @@ export const Navbar = () => {
             </Link>
             <Link
               className="hover:text-gray-300 transition-colors duration-300 w-full text-center py-2"
-              onClick={handleLinkClick}
+              onClick={handleLinkClickAndScrollToCommentCaMarche}
             >
               Comment ça marche
             </Link>
             <Link
-              to="/contact"
               className="hover:text-gray-300 transition-colors duration-300 w-full text-center py-2"
-              onClick={handleLinkClick}
+              onClick={handleScrollToContact}
             >
               Contact
             </Link>

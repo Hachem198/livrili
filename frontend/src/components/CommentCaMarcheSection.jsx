@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { forwardRef } from "react";
 import {
   Truck,
   Star,
@@ -10,8 +11,9 @@ import {
   Navigation,
 } from "lucide-react";
 import { ProcessCard } from "./ProcessCard";
+import scrollStore from "../store/scrollStore/scrollStore";
 
-export const CommentCaMarcheSection = () => {
+export const CommentCaMarcheSection = forwardRef((props, ref) => {
   const [activeTab, setActiveTab] = useState("clients");
 
   const clientProcess = [
@@ -69,7 +71,7 @@ export const CommentCaMarcheSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 ">
+    <section ref={ref} id="how-it-works" className="py-20 ">
       <div className="container mx-auto px-6 ">
         <h2 className="text-3xl font-bold text-center mb-4 text-white">
           Comment ça marche?
@@ -135,4 +137,4 @@ export const CommentCaMarcheSection = () => {
       </div>
     </section>
   );
-};
+});
