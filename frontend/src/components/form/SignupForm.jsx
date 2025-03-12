@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
+import axios from "axios";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
-    ConfirmPassword: "",
+    confirmPassword: "",
+    phone: "",
     gender: "",
     role: "",
-    agreeToTerms: false,
   });
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -25,12 +27,10 @@ export default function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your sign-up logic here
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
+    <div className="min-h-screen flex items-center justify-center pb-12">
       <div className="w-full max-w-md p-8 space-y-8 bg-gray-900/40 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-800">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white">Crée Un Compte</h1>
@@ -42,30 +42,56 @@ export default function SignupForm() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           {/*Nom*/}
           <div className="space-y-4">
-            <div className="space-y-2">
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-200"
-              >
-                Nom
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-blue-400" />
+            <div className="flex space-x-4">
+              <div className="space-y-2">
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-200"
+                >
+                  Nom
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    required
+                    placeholder="Ahmed"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
                 </div>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  required
-                  placeholder="John Doe"
-                  value={formData.username}
-                  onChange={handleChange}
-                  className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
+              </div>
+              {/*Prenom*/}
+              <div className="space-y-2">
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-gray-200"
+                >
+                  Prenom
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    required
+                    placeholder="Sfar"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
               </div>
             </div>
-
+            {/*email*/}
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -89,6 +115,32 @@ export default function SignupForm() {
                 />
               </div>
             </div>
+
+            {/* Phone  */}
+            <div className="space-y-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-200"
+              >
+                Numéro de téléphone
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Phone className="h-5 w-5 text-blue-400" />
+                </div>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  placeholder="+216 12456789"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            </div>
+
             {/********************Password**********************/}
             <div className="space-y-2">
               <label
@@ -142,12 +194,12 @@ export default function SignupForm() {
                   <Lock className="h-5 w-5 text-blue-400" />
                 </div>
                 <input
-                  id="ConfirmPassword"
-                  name="ConfirmPassword"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  value={formData.ConfirmPassword}
+                  value={formData.confirmPassword}
                   onChange={handleChange}
                   className="pl-10 pr-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
