@@ -5,7 +5,7 @@ import axios from "axios";
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -18,15 +18,20 @@ export default function SignupForm() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCheckboxChange = (e) => {
-    setFormData((prev) => ({ ...prev, agreeToTerms: e.target.checked }));
+    setUser((prev) => ({ ...prev, agreeToTerms: e.target.checked }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    try {
+      axios.post(`${apiUrl}/api/auth/signUp`, user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -60,7 +65,7 @@ export default function SignupForm() {
                     type="text"
                     required
                     placeholder="Ahmed"
-                    value={formData.firstName}
+                    value={user.firstName}
                     onChange={handleChange}
                     className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
@@ -84,7 +89,7 @@ export default function SignupForm() {
                     type="text"
                     required
                     placeholder="Sfar"
-                    value={formData.lastName}
+                    value={user.lastName}
                     onChange={handleChange}
                     className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
@@ -109,7 +114,7 @@ export default function SignupForm() {
                   type="email"
                   required
                   placeholder="name@example.com"
-                  value={formData.email}
+                  value={user.email}
                   onChange={handleChange}
                   className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -134,7 +139,7 @@ export default function SignupForm() {
                   type="tel"
                   required
                   placeholder="+216 12456789"
-                  value={formData.phone}
+                  value={user.phone}
                   onChange={handleChange}
                   className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -159,7 +164,7 @@ export default function SignupForm() {
                   type={showPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  value={formData.password}
+                  value={user.password}
                   onChange={handleChange}
                   className="pl-10 pr-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -199,7 +204,7 @@ export default function SignupForm() {
                   type={showConfirmPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  value={formData.confirmPassword}
+                  value={user.confirmPassword}
                   onChange={handleChange}
                   className="pl-10 pr-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -229,8 +234,8 @@ export default function SignupForm() {
                     id="gender-men"
                     name="gender"
                     type="radio"
-                    value="men"
-                    checked={formData.gender === "men"}
+                    value="MALE"
+                    checked={user.gender === "MALE"}
                     onChange={handleChange}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
                   />
@@ -238,7 +243,7 @@ export default function SignupForm() {
                     htmlFor="gender-men"
                     className="ml-2 block text-sm text-gray-200"
                   >
-                    Men
+                    Homme
                   </label>
                 </div>
                 <div className="flex items-center">
@@ -246,8 +251,8 @@ export default function SignupForm() {
                     id="gender-women"
                     name="gender"
                     type="radio"
-                    value="women"
-                    checked={formData.gender === "women"}
+                    value="FEMALE"
+                    checked={user.gender === "MALE"}
                     onChange={handleChange}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
                   />
@@ -255,7 +260,7 @@ export default function SignupForm() {
                     htmlFor="gender-women"
                     className="ml-2 block text-sm text-gray-200"
                   >
-                    Women
+                    Femme
                   </label>
                 </div>
               </div>
@@ -272,14 +277,14 @@ export default function SignupForm() {
                     name="role"
                     type="radio"
                     value="client"
-                    checked={formData.role === "client"}
+                    checked={user.role === "client"}
                     onChange={handleChange}
                     className="sr-only"
                   />
                   <label
                     htmlFor="role-client"
                     className={`flex items-center justify-center px-4 py-2 border ${
-                      formData.role === "client"
+                      user.role === "client"
                         ? "border-blue-500 bg-blue-600 text-white"
                         : "border-gray-700 bg-gray-800/70 text-gray-300"
                     } rounded-md cursor-pointer hover:bg-gray-700 transition-colors`}
@@ -293,14 +298,14 @@ export default function SignupForm() {
                     name="role"
                     type="radio"
                     value="coursier"
-                    checked={formData.role === "coursier"}
+                    checked={user.role === "coursier"}
                     onChange={handleChange}
                     className="sr-only"
                   />
                   <label
                     htmlFor="role-coursier"
                     className={`flex items-center justify-center px-4 py-2 border ${
-                      formData.role === "coursier"
+                      user.role === "coursier"
                         ? "border-blue-500 bg-blue-600 text-white"
                         : "border-gray-700 bg-gray-800/70 text-gray-300"
                     } rounded-md cursor-pointer hover:bg-gray-700 transition-colors`}
@@ -310,36 +315,11 @@ export default function SignupForm() {
                 </div>
               </div>
             </div>
-            {/**********POLICY************* */}
-            <div className="flex items-center space-x-2">
-              <input
-                id="terms"
-                name="terms"
-                type="checkbox"
-                checked={formData.agreeToTerms}
-                onChange={handleCheckboxChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="terms"
-                className="text-sm font-medium text-gray-200"
-              >
-                I agree to the{" "}
-                <a href="#" className="text-blue-400 hover:underline">
-                  Terms of Service
-                </a>{" "}
-                and{" "}
-                <a href="#" className="text-blue-400 hover:underline">
-                  Privacy Policy
-                </a>
-              </label>
-            </div>
           </div>
           {/***********Submit Button ****************/}
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!formData.agreeToTerms}
           >
             Create Account
           </button>

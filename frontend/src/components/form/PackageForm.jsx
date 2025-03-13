@@ -8,14 +8,49 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { Card, CardContent } from "../ui/card";
+import { LoadScript } from "@react-google-maps/api";
+import DropOffLocation from "../location/DropOffLocation";
+import PickUpLocation from "../location/PickUpLocation";
 
 export const PackageForm = () => {
   const [formData, setFormData] = useState({
     description: "",
-    weight: "",
+    weight: 700,
     pickUpLocation: "",
     dropOffLocation: "",
   });
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const [selectedCarIndex, setSelectedCarIndex] = useState(0);
+  const cars = [
+    {
+      typeDeTransport: "Transport classique",
+      minWeight: 600,
+      maxWeight: 800,
+      imgSrc:
+        "https://www.argusautomobile.tn/wp-content/uploads/2021/07/DACIA-DOKKER-VAN.jpg",
+    },
+    {
+      typeDeTransport: "Transport",
+      minWeight: 1000,
+      maxWeight: 1500,
+      imgSrc:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlT_jzqnN1AYkUKztDWHUuGvuCz3XeqEnOvw&s",
+    },
+    {
+      typeDeTransport: "Déménagement",
+      minWeight: 3000,
+      maxWeight: 3500,
+      imgSrc:
+        "https://thumbs.dreamstime.com/b/fourgon-blanc-ford-transit-d-isolement-sur-le-vue-de-c%C3%B4t%C3%A9-144038361.jpg",
+    },
+    {
+      typeDeTransport: "Transport Lourd",
+      minWeight: 4000,
+      maxWeight: 5000,
+      imgSrc:
+        "https://previews.123rf.com/images/aprior/aprior1510/aprior151000081/46735060-camion-blanc-il-est-isol%C3%A9-sur-fond-blanc.jpg",
+    },
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,10 +65,22 @@ export const PackageForm = () => {
     e.preventDefault();
     // Here you would send the data to your API
     console.log("Form submitted:", formData);
+    console.log("Selected car:", cars[selectedCarIndex]);
   };
 
+  const handleCarSelect = (index) => {
+    const selectedCar = cars[index];
+    setSelectedCarIndex(index);
+
+    const defaultWeight = (selectedCar.maxWeight + selectedCar.minWeight) / 2;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      weight: defaultWeight,
+    }));
+  };
   return (
-    <div className="w-full  py-16">
+    <div className="w-full py-16">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-10">
           {/* Hero Text */}
@@ -64,84 +111,112 @@ export const PackageForm = () => {
               </h2>
               <form onSubmit={handleSubmit}>
                 {/*PickUpLocation/DropOffLocation*/}
-                <div className="flex space-x-8 ml-4">
-                  {/*PickUpLocation*/}
-                  <div className="mb-4">
-                    <label
-                      htmlFor="pickUpLocation"
-                      className="block text-gray-300 mb-2"
-                    >
-                      Lieu de ramassage
-                    </label>
-                    <input
-                      type="text"
-                      id="pickUpLocation"
-                      name="pickUpLocation"
-                      value={formData.pickUpLocation}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Adresse complète du point de départ"
-                      required
-                    />
+                <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
+                  <div className="flex flex-col md:flex-row md:space-x-8 mb-6">
+                    <div className="mb-4 md:mb-0 flex-1">
+                      <label className="block text-gray-300 mb-2">
+                        Lieu de ramassage
+                      </label>
+                      <PickUpLocation
+                        value={formData.pickUpLocation}
+                        onChange={(value) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            pickUpLocation: value,
+                          }))
+                        }
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label className="block text-gray-300 mb-2">
+                        Lieu de livraison
+                      </label>
+                      <DropOffLocation
+                        value={formData.dropOffLocation}
+                        onChange={(value) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            dropOffLocation: value,
+                          }))
+                        }
+                      />
+                    </div>
                   </div>
-                  {/*DropOffLocation*/}
-                  <div className="mb-6">
-                    <label
-                      htmlFor="dropOffLocation"
-                      className="block text-gray-300 mb-2"
-                    >
-                      Lieu de livraison
-                    </label>
-                    <input
-                      type="text"
-                      id="dropOffLocation"
-                      name="dropOffLocation"
-                      value={formData.dropOffLocation}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Adresse complète de la destination"
-                      required
-                    />
-                  </div>
+                </LoadScript>
+
+                {/* Selection de type de transport */}
+                <div className="mb-4">
+                  <h3 className="text-lg font-medium text-white text-center">
+                    Sélectionnez le type de transport
+                  </h3>
                 </div>
-                {/*Carousel*/}
-                <Carousel className="w-full max-w-xs ">
-                  <CarouselContent>
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <CarouselItem key={index}>
-                        <div className="p-1">
-                          <Card>
-                            <CardContent className="flex aspect-square items-center justify-center p-6">
-                              <span className="text-4xl font-semibold">
-                                {index + 1}
-                              </span>
+
+                {/* Enhanced Carousel */}
+                <div className="mb-6">
+                  <Carousel
+                    className="w-full"
+                    onSelect={(index) => handleCarSelect(index)}
+                  >
+                    <CarouselContent>
+                      {cars.map((car, index) => (
+                        <CarouselItem key={index}>
+                          <Card
+                            className={`border-2 ${
+                              selectedCarIndex === index
+                                ? "border-purple-500"
+                                : "border-gray-600"
+                            } bg-gradient-to-b from-gray-800 to-blue-950 overflow-hidden`}
+                          >
+                            <CardContent className="p-0">
+                              <div className="relative">
+                                <div className="bg-gradient-to-r from-purple-900 to-blue-900 p-3">
+                                  <h3 className="text-xl font-bold text-white text-center">
+                                    {car.typeDeTransport}
+                                  </h3>
+                                </div>
+                                <div className="p-4 flex flex-col items-center">
+                                  <div className="h-40 flex items-center justify-center mb-4 overflow-hidden">
+                                    <img
+                                      src={car.imgSrc}
+                                      alt={car.typeDeTransport}
+                                      className="object-contain h-full w-full transition-transform hover:scale-105"
+                                    />
+                                  </div>
+                                  <div className="bg-blue-900 bg-opacity-50 rounded-lg p-3 w-full text-center">
+                                    <p className="text-white font-medium">
+                                      Capacité:{" "}
+                                      <span className="text-white">
+                                        {car.minWeight} - {car.maxWeight} KG
+                                      </span>
+                                    </p>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleCarSelect(index)}
+                                    className={`mt-4 px-4 py-2 rounded-md transition-colors ${
+                                      selectedCarIndex === index
+                                        ? "bg-purple-600 text-white"
+                                        : "bg-gray-700 text-gray-200 hover:bg-purple-700"
+                                    }`}
+                                  >
+                                    {selectedCarIndex === index
+                                      ? "Sélectionné"
+                                      : "Sélectionner"}
+                                  </button>
+                                </div>
+                              </div>
                             </CardContent>
                           </Card>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-                {/*Weight*/}
-                <div className="mb-4">
-                  <label htmlFor="weight" className="block text-gray-300 mb-2">
-                    Poids (kg)
-                  </label>
-                  <input
-                    type="number"
-                    id="weight"
-                    name="weight"
-                    value={formData.weight}
-                    onChange={handleChange}
-                    min="0.1"
-                    step="0.1"
-                    className="w-full px-4 py-2 bg-blue-950 border border-purple-700  rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Entrez le poids en kilogrammes"
-                    required
-                  />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-0 bg-purple-700 hover:bg-purple-800 border-none text-white" />
+                    <CarouselNext className="right-0 bg-purple-700 hover:bg-purple-800 border-none text-white" />
+                  </Carousel>
                 </div>
+
                 {/*Description*/}
-                <div className="mb-4">
+                <div className="mb-6">
                   <label
                     htmlFor="description"
                     className="block text-gray-300 mb-2"
@@ -162,7 +237,7 @@ export const PackageForm = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-purple-700 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition duration-300"
+                  className="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-3 px-4 rounded-md transition duration-300 shadow-lg"
                 >
                   Soumettre ma demande
                 </button>
