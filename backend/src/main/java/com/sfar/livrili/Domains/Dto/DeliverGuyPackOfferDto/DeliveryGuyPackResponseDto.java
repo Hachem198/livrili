@@ -17,6 +17,7 @@ import java.util.UUID;
 @Builder
 public class DeliveryGuyPackResponseDto {
     private UUID id;
+    private String clientName;
     private String description;
     private String pickUpLocation;
     private String dropOffLocation;
@@ -26,7 +27,4 @@ public class DeliveryGuyPackResponseDto {
     private String createdBy;
     private List<OfferInPackDeliveryGuyDto> offersInPack = new ArrayList<>();
 
-
-
 }
-
