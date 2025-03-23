@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
+import { toast } from "sonner";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupForm() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [user, setUser] = useState({
@@ -21,16 +24,17 @@ export default function SignupForm() {
     setUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = (e) => {
-    setUser((prev) => ({ ...prev, agreeToTerms: e.target.checked }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      axios.post(`${apiUrl}/api/auth/signUp`, user);
+      const res = await axios.post(`${apiUrl}/v1/api/auth/signUp`, user);
+      toast.success("Account created succefully !");
+      navigate("/login");
     } catch (error) {
       console.log(error);
+      error.response.data.fields.map((field, index) => {
+        toast.error(field.message);
+      });
     }
   };
 
@@ -147,6 +151,7 @@ export default function SignupForm() {
             </div>
 
             {/********************Password**********************/}
+            {/* Password Field */}
             <div className="space-y-2">
               <label
                 htmlFor="password"
@@ -183,13 +188,14 @@ export default function SignupForm() {
                 </div>
               </div>
               <p className="text-xs text-gray-400">
-                Le mot de passe doit comporter au moins 8 caractères
+                Le mot de passe doit comporter au moins 6 caractères
               </p>
             </div>
-            {/**************Confirm password************************/}
+
+            {/* Confirm Password Field */}
             <div className="space-y-2">
               <label
-                htmlFor="password"
+                htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-200"
               >
                 Confirmer le Mot de passe
@@ -206,7 +212,17 @@ export default function SignupForm() {
                   placeholder="••••••••"
                   value={user.confirmPassword}
                   onChange={handleChange}
-                  className="pl-10 pr-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`pl-10 pr-10 w-full py-2 bg-gray-800/50 border ${
+                    user.confirmPassword &&
+                    user.password !== user.confirmPassword
+                      ? "border-red-500"
+                      : "border-gray-700"
+                  } text-white rounded-md focus:outline-none focus:ring-2 ${
+                    user.confirmPassword &&
+                    user.password !== user.confirmPassword
+                      ? "focus:ring-red-500 focus:border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                   <button
@@ -222,6 +238,12 @@ export default function SignupForm() {
                   </button>
                 </div>
               </div>
+              {user.confirmPassword &&
+                user.password !== user.confirmPassword && (
+                  <p className="text-xs text-red-500 mt-1">
+                    Les mots de passe ne correspondent pas
+                  </p>
+                )}
             </div>
             {/**********Gender **********/}
             <div className="space-y-2">
@@ -252,7 +274,7 @@ export default function SignupForm() {
                     name="gender"
                     type="radio"
                     value="FEMALE"
-                    checked={user.gender === "MALE"}
+                    checked={user.gender === "FEMALE"}
                     onChange={handleChange}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
                   />
@@ -276,15 +298,15 @@ export default function SignupForm() {
                     id="role-client"
                     name="role"
                     type="radio"
-                    value="client"
-                    checked={user.role === "client"}
+                    value="CLIENT"
+                    checked={user.role === "CLIENT"}
                     onChange={handleChange}
                     className="sr-only"
                   />
                   <label
                     htmlFor="role-client"
                     className={`flex items-center justify-center px-4 py-2 border ${
-                      user.role === "client"
+                      user.role === "CLIENT"
                         ? "border-blue-500 bg-blue-600 text-white"
                         : "border-gray-700 bg-gray-800/70 text-gray-300"
                     } rounded-md cursor-pointer hover:bg-gray-700 transition-colors`}
@@ -297,20 +319,20 @@ export default function SignupForm() {
                     id="role-coursier"
                     name="role"
                     type="radio"
-                    value="coursier"
-                    checked={user.role === "coursier"}
+                    value="DELIVERY_PERSON"
+                    checked={user.role === "DELIVERY_PERSON"}
                     onChange={handleChange}
                     className="sr-only"
                   />
                   <label
                     htmlFor="role-coursier"
                     className={`flex items-center justify-center px-4 py-2 border ${
-                      user.role === "coursier"
+                      user.role === "DELIVERY_PERSON"
                         ? "border-blue-500 bg-blue-600 text-white"
                         : "border-gray-700 bg-gray-800/70 text-gray-300"
                     } rounded-md cursor-pointer hover:bg-gray-700 transition-colors`}
                   >
-                    Coursier
+                    Delivery Guy
                   </label>
                 </div>
               </div>

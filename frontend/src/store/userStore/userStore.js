@@ -9,7 +9,7 @@ class UserStore {
   }
 
   setUser(user) {
-    this.user = user;
+    this.user = { ...user };
   }
 
   setToken(token) {

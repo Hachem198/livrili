@@ -134,3 +134,20 @@
     @apply bg-background text-foreground;
   }
 }
+/* Style for autocomplete dropdown */
+.geoapify-autocomplete-items {
+  @apply bg-blue-950 border border-purple-700 rounded-md mt-1 shadow-lg;
+}
+
+.geoapify-autocomplete-item {
+  @apply px-4 py-2 text-white hover:bg-purple-700 cursor-pointer;
+}
+
+.geoapify-autocomplete-item.active {
+  @apply bg-purple-700 text-white;
+}
+
+/* Ensure the input field has the correct styling */
+.geoapify-autocomplete-input {
+  @apply w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500;
+}

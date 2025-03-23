@@ -1,27 +1,44 @@
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import axios from "axios";
+import userStore from "../../store/userStore/userStore";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function LoginForm() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCheckboxChange = (e) => {
-    setFormData((prev) => ({ ...prev, agreeToTerms: e.target.checked }));
+    setUser((prev) => ({ ...prev, agreeToTerms: e.target.checked }));
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your sign-up logic here
+    try {
+      const res = await axios.post(`${apiUrl}/v1/api/auth/login`, user);
+      toast.success("Logged in Successfully");
+      userStore.setToken(res.data.token);
+
+      const { data } = await axios.get(`${apiUrl}/v1/api/auth`, {
+        headers: { Authorization: `Bearer ${res.data.token}` },
+      });
+
+      userStore.setUser(data);
+      navigate("/");
+    } catch (error) {
+      toast.error("Email or Password are wrong!");
+      console.error(error);
+    }
   };
 
   return (
@@ -51,7 +68,7 @@ export default function LoginForm() {
                   type="email"
                   required
                   placeholder="name@example.com"
-                  value={formData.email}
+                  value={user.email}
                   onChange={handleChange}
                   className="pl-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -75,7 +92,7 @@ export default function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  value={formData.password}
+                  value={user.password}
                   onChange={handleChange}
                   className="pl-10 pr-10 w-full py-2 bg-gray-800/50 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -99,9 +116,8 @@ export default function LoginForm() {
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!formData.agreeToTerms}
           >
-            Create Account
+            Se Connecter
           </button>
         </form>
 

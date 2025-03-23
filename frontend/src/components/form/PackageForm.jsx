@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import {
+  GeoapifyContext,
+  GeoapifyGeocoderAutocomplete,
+} from "@geoapify/react-geocoder-autocomplete";
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -8,77 +12,47 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { Card, CardContent } from "../ui/card";
-import { LoadScript } from "@react-google-maps/api";
-import DropOffLocation from "../location/DropOffLocation";
-import PickUpLocation from "../location/PickUpLocation";
+import axios from "axios";
+import { set } from "react-hook-form";
+import userStore from "../../store/userStore/userStore";
+import { toast } from "sonner";
 
 export const PackageForm = () => {
-  const [formData, setFormData] = useState({
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const [pack, setPack] = useState({
     description: "",
-    weight: 700,
+    weight: 0,
     pickUpLocation: "",
     dropOffLocation: "",
   });
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  const [selectedCarIndex, setSelectedCarIndex] = useState(0);
-  const cars = [
-    {
-      typeDeTransport: "Transport classique",
-      minWeight: 600,
-      maxWeight: 800,
-      imgSrc:
-        "https://www.argusautomobile.tn/wp-content/uploads/2021/07/DACIA-DOKKER-VAN.jpg",
-    },
-    {
-      typeDeTransport: "Transport",
-      minWeight: 1000,
-      maxWeight: 1500,
-      imgSrc:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlT_jzqnN1AYkUKztDWHUuGvuCz3XeqEnOvw&s",
-    },
-    {
-      typeDeTransport: "Déménagement",
-      minWeight: 3000,
-      maxWeight: 3500,
-      imgSrc:
-        "https://thumbs.dreamstime.com/b/fourgon-blanc-ford-transit-d-isolement-sur-le-vue-de-c%C3%B4t%C3%A9-144038361.jpg",
-    },
-    {
-      typeDeTransport: "Transport Lourd",
-      minWeight: 4000,
-      maxWeight: 5000,
-      imgSrc:
-        "https://previews.123rf.com/images/aprior/aprior1510/aprior151000081/46735060-camion-blanc-il-est-isol%C3%A9-sur-fond-blanc.jpg",
-    },
-  ];
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setPack((prevData) => ({
       ...prevData,
       [name]:
         name === "weight" ? (value === "" ? "" : parseFloat(value)) : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would send the data to your API
-    console.log("Form submitted:", formData);
-    console.log("Selected car:", cars[selectedCarIndex]);
+    try {
+      const res = await axios.post(`${apiUrl}/v1/api/client/pack`, pack, {
+        headers: { Authorization: `Bearer ${userStore.token}` },
+      });
+      toast.success("Package created succesfully !");
+      setPack({
+        description: "",
+        weight: 0,
+        pickUpLocation: "",
+        dropOffLocation: "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleCarSelect = (index) => {
-    const selectedCar = cars[index];
-    setSelectedCarIndex(index);
-
-    const defaultWeight = (selectedCar.maxWeight + selectedCar.minWeight) / 2;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      weight: defaultWeight,
-    }));
-  };
   return (
     <div className="w-full py-16">
       <div className="max-w-6xl mx-auto px-4">
@@ -111,47 +85,75 @@ export const PackageForm = () => {
               </h2>
               <form onSubmit={handleSubmit}>
                 {/*PickUpLocation/DropOffLocation*/}
-                <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
-                  <div className="flex flex-col md:flex-row md:space-x-8 mb-6">
-                    <div className="mb-4 md:mb-0 flex-1">
-                      <label className="block text-gray-300 mb-2">
-                        Lieu de ramassage
-                      </label>
-                      <PickUpLocation
-                        value={formData.pickUpLocation}
-                        onChange={(value) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            pickUpLocation: value,
-                          }))
+                <GeoapifyContext apiKey="c741f1e11aa7477c85f61e99d0c9fc51">
+                  {/* PickUpLocation */}
+                  <div className="mb-6">
+                    <label
+                      htmlFor="pickup"
+                      className="block text-gray-300 mb-2"
+                    >
+                      Adresse de collecte
+                    </label>
+                    <div className="relative">
+                      <GeoapifyGeocoderAutocomplete
+                        placeholder="Entrez l'adresse de collecte"
+                        className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        skipIcons={true}
+                        filterByCountryCode={["TN"]}
+                        onUserInput={(place) =>
+                          setPack({
+                            ...pack,
+                            pickUpLocation: place,
+                          })
                         }
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label className="block text-gray-300 mb-2">
-                        Lieu de livraison
-                      </label>
-                      <DropOffLocation
-                        value={formData.dropOffLocation}
-                        onChange={(value) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            dropOffLocation: value,
-                          }))
+                        placeSelect={(place) =>
+                          setPack({
+                            ...pack,
+                            pickUpLocation: place.properties.formatted,
+                          })
                         }
                       />
                     </div>
                   </div>
-                </LoadScript>
+
+                  {/* DropOffLocation */}
+                  <div className="mb-6">
+                    <label
+                      htmlFor="dropoff"
+                      className="block text-gray-300 mb-2"
+                    >
+                      Adresse de livraison
+                    </label>
+                    <div className="relative">
+                      <GeoapifyGeocoderAutocomplete
+                        placeholder="Entrez l'adresse de livraison"
+                        className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        filterByCountryCode={["TN"]}
+                        skipIcons={true}
+                        onUserInput={(place) =>
+                          setPack({
+                            ...pack,
+                            dropOffLocation: place,
+                          })
+                        }
+                        placeSelect={(place) =>
+                          setPack({
+                            ...pack,
+                            dropOffLocation: place.properties.formatted,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                </GeoapifyContext>
 
                 {/* Selection de type de transport */}
+                {/*
                 <div className="mb-4">
                   <h3 className="text-lg font-medium text-white text-center">
                     Sélectionnez le type de transport
                   </h3>
                 </div>
-
-                {/* Enhanced Carousel */}
                 <div className="mb-6">
                   <Carousel
                     className="w-full"
@@ -214,7 +216,25 @@ export const PackageForm = () => {
                     <CarouselNext className="right-0 bg-purple-700 hover:bg-purple-800 border-none text-white" />
                   </Carousel>
                 </div>
-
+                */}
+                {/*Weight*/}
+                <div className="mb-6">
+                  <label htmlFor="weight" className="block text-gray-300 mb-2">
+                    Poids du colis (kg)
+                  </label>
+                  <input
+                    type="number"
+                    id="weight"
+                    name="weight"
+                    min="0"
+                    step="0.1"
+                    value={pack.weight}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Entrez le poids du colis"
+                    required
+                  />
+                </div>
                 {/*Description*/}
                 <div className="mb-6">
                   <label
@@ -227,14 +247,13 @@ export const PackageForm = () => {
                     id="description"
                     name="description"
                     rows="3"
-                    value={formData.description}
+                    value={pack.description}
                     onChange={handleChange}
                     className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Décrivez votre colis (type, dimensions, fragilité...)"
                     required
                   />
                 </div>
-
                 <button
                   type="submit"
                   className="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-3 px-4 rounded-md transition duration-300 shadow-lg"

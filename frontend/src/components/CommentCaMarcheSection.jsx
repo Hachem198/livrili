@@ -19,54 +19,52 @@ export const CommentCaMarcheSection = forwardRef((props, ref) => {
   const clientProcess = [
     {
       icon: UserPlus,
-      process: "1. Inscrivez-vous",
+      process: "1. Sign Up",
       description:
-        "Créez votre compte client en quelques clics pour accéder à nos services.",
+        "Create your client account in just a few clicks to access our services.",
     },
     {
       icon: Package,
-      process: "2. Décrivez votre besoin",
+      process: "2. Describe Your Needs",
       description:
-        "Spécifiez les détails de votre transport : type de marchandise, lieu de départ/arrivée, date.",
+        "Specify the details of your transport: type of goods, pickup/drop-off location, and date.",
     },
     {
       icon: FileCheck,
-      process: "3. Choisissez l'offre",
+      process: "3. Choose an Offer",
       description:
-        "Comparez les devis des transporteurs et sélectionnez celui qui vous convient.",
+        "Compare transporters' quotes and select the one that best suits you.",
     },
     {
       icon: Navigation,
-      process: "4. Suivez la livraison",
+      process: "4. Track Your Delivery",
       description:
-        "Suivez votre transport en temps réel et recevez des notifications à chaque étape.",
+        "Monitor your transport in real-time and receive notifications at every step.",
     },
   ];
 
   const deliveryProcess = [
     {
       icon: Truck,
-      process: "1. Rejoignez-nous",
+      process: "1. Join Us",
       description:
-        "Inscrivez-vous comme transporteur et complétez votre profil professionnel.",
+        "Sign up as a transporter and complete your professional profile.",
     },
     {
       icon: Bell,
-      process: "2. Recevez des demandes",
-      description:
-        "Accédez aux demandes de transport correspondant à vos critères.",
+      process: "2. Receive Requests",
+      description: "Access transport requests that match your criteria.",
     },
     {
       icon: Wallet,
-      process: "3. Proposez vos tarifs",
-      description:
-        "Soumettez vos devis en fonction de vos disponibilités et tarifs.",
+      process: "3. Set Your Rates",
+      description: "Submit your quotes based on your availability and pricing.",
     },
     {
       icon: Star,
-      process: "4. Développez votre activité",
+      process: "4. Grow Your Business",
       description:
-        "Gagnez en visibilité grâce aux évaluations positives de vos clients.",
+        "Increase your visibility through positive customer reviews.",
     },
   ];
 
@@ -74,7 +72,7 @@ export const CommentCaMarcheSection = forwardRef((props, ref) => {
     <section ref={ref} id="how-it-works" className="py-20 ">
       <div className="container mx-auto px-6 ">
         <h2 className="text-3xl font-bold text-center mb-4 text-white">
-          Comment ça marche?
+          How it works ?
         </h2>
         <p className="text-gray-300 text-center mb-8 max-w-2xl mx-auto">
           Notre plateforme simplifie la mise en relation entre clients et
