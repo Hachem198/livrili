@@ -19,9 +19,6 @@ export default function LoginForm() {
     setUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = (e) => {
-    setUser((prev) => ({ ...prev, agreeToTerms: e.target.checked }));
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

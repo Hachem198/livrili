@@ -8,6 +8,8 @@ import { Login } from "./pages/Login";
 import "./index.css";
 import { Toaster } from "sonner";
 import { Packages } from "./pages/Packages";
+import AvailablePackagesPage from "./pages/AvailablePackagesPage";
+import { ApprovedPacksPage } from "./pages/ApprovedPacksPage";
 
 function App() {
   return (
@@ -18,6 +20,14 @@ function App() {
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/services" element={<Services></Services>}></Route>
           <Route path="/packages" element={<Packages></Packages>}></Route>
+          <Route
+            path="/availablepacks"
+            element={<AvailablePackagesPage></AvailablePackagesPage>}
+          ></Route>
+          <Route
+            path="/packages/approved-packs"
+            element={<ApprovedPacksPage></ApprovedPacksPage>}
+          ></Route>
         </Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>

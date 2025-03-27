@@ -38,7 +38,9 @@ export const Navbar = observer(() => {
 
   const handleLogout = () => {
     console.log("Logging out");
+    userStore.setToken("");
     setIsUserMenuOpen(false);
+    navigate("/");
   };
   //useeffect to close the list after clicking outside of it
   useEffect(() => {

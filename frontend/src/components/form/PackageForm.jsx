@@ -79,7 +79,7 @@ export const PackageForm = () => {
 
           {/* Form Card */}
           <div className="w-full lg:w-1/2">
-            <div className="bg-blue-950 ring-purple-700 ring bg-opacity-80 rounded-lg shadow-xl p-6">
+            <div className="bg-purple-800/40 ring-purple-700 ring bg-opacity-80 rounded-lg shadow-xl p-6">
               <h2 className="text-2xl font-semibold text-white mb-6 text-center">
                 Demande de transport
               </h2>
