@@ -5,17 +5,17 @@ import { ApprovedPackCard } from "../cards/ApprovedPackCard";
 
 export const ApprovedPacks = () => {
   const [approvedPacks, setApprovedPacks] = useState([]);
-  useEffect(() => {
-    const fetchApprovedPacks = async () => {
-      try {
-        const data = await getApprovedPacks();
-        console.log(data);
-        setApprovedPacks(data);
-      } catch (error) {
-        console.error("Error fetching approved packages:", error);
-      }
-    };
+  const fetchApprovedPacks = async () => {
+    try {
+      const data = await getApprovedPacks();
+      console.log(data);
+      setApprovedPacks(data);
+    } catch (error) {
+      console.error("Error fetching approved packages:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchApprovedPacks();
   }, []);
   console.log({ approvedPacks });

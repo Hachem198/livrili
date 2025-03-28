@@ -7,13 +7,27 @@ import {
 } from "react-icons/fa";
 import { renderStars } from "../../methods/renderStars";
 import userStore from "../../store/userStore/userStore";
+import axios from "axios";
+import { toast } from "sonner";
 
-export const DeliveredPackCard = ({ pack, onRateDelivery }) => {
+export const DeliveredPackCard = ({ pack }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [hoverRating, setHoverRating] = useState(0);
   const [selectedRating, setSelectedRating] = useState(0);
   const [showRatingOptions, setShowRatingOptions] = useState(false);
-
+  console.log({ pack });
   const isClient = userStore.user?.role === "CLIENT";
+  const onRateDelivery = async (id, rating) => {
+    try {
+      const data = rating != null ? { rating } : {};
+
+      await axios.put(`${apiUrl}/v1/api/client/pack/${id}/rate`, data, {
+        headers: { Authorization: `Bearer ${userStore.token}` },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleRatingHover = (rating) => {
     if (isClient) {
@@ -24,15 +38,14 @@ export const DeliveredPackCard = ({ pack, onRateDelivery }) => {
   const handleRatingSelect = (rating) => {
     if (isClient) {
       setSelectedRating(rating);
-      // Call the onRateDelivery prop with the pack ID and rating
-      onRateDelivery && onRateDelivery(pack.id, rating);
+      onRateDelivery && onRateDelivery(pack.packId, rating);
       setShowRatingOptions(false);
     }
   };
 
   const handleSkipRating = () => {
     if (isClient) {
-      onRateDelivery && onRateDelivery(pack.id, null);
+      onRateDelivery && onRateDelivery(pack.packId, null);
       setShowRatingOptions(false);
     }
   };

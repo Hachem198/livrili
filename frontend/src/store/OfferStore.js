@@ -1,5 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
-class OfferStore {}
+class OfferStore {
+    
+}
 
 export const offerStore = new OfferStore();

@@ -65,6 +65,22 @@ export const PackagesToggleGroup = ({ active, setActive }) => {
         >
           Approved Packages
         </ToggleGroupItem>
+        <ToggleGroupItem
+          value="offeredPacks"
+          className="
+            px-4 py-2 
+            text-gray-300 
+            hover:bg-gray-700 
+            data-[state=on]:bg-purple-600 
+            data-[state=on]:text-white 
+            rounded-md 
+            transition-colors 
+            duration-200 
+            ease-in-out
+          "
+        >
+          Offered Packages
+        </ToggleGroupItem>
       </ToggleGroup>
     </div>
   );

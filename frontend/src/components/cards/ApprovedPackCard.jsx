@@ -86,11 +86,10 @@ export const ApprovedPackCard = ({ pack, setApprovedPacks }) => {
               Delivery Guy rating:
             </p>
             <div className="flex items-center">
-              <div
-                className="flex"
-                aria-label={`Rating: ${pack.deliveryGuyRatingCount} out of 5 stars`}
-              >
-                {renderStars(pack.deliveryGuyRatingCount)}
+              <div className="flex">
+                {pack.deliveryGuyRating === -1
+                  ? renderStars(0)
+                  : renderStars(pack.deliveryGuyRating)}
               </div>
               <span className="ml-1 text-xs text-violet-300">
                 ({pack.deliveryGuyRatingCount})

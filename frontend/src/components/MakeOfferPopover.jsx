@@ -32,7 +32,6 @@ export const MakeOfferPopover = ({ id }) => {
           headers: { Authorization: `Bearer ${userStore.token}` },
         });
         toast.success("Offer Changed Successfully!");
-        offerStore.triggerRefetch();
         setIsExistingOffer(true);
       } catch (error) {
         toast.error("Your offer has been already accepted !");
@@ -79,6 +78,7 @@ export const MakeOfferPopover = ({ id }) => {
           id: data.id,
           price: data.price ?? 0,
           dayToDeliver: data.dayToDeliver ?? 0,
+          status: data.status,
         }));
         setIsExistingOffer(data.price > 0 || data.dayToDeliver > 0);
       }
@@ -92,92 +92,86 @@ export const MakeOfferPopover = ({ id }) => {
   }, []);
 
   return (
-    <>
-      {offer.status === "ACCEPTED" ? (
-        <h3>No</h3>
+    <Popover>
+      {offer.status === "DECLINED" && isExistingOffer ? (
+        <h3 className="text-lg font-semibold text-red-600 flex justify-center">
+          Your last offer has been declined
+        </h3>
       ) : (
-        <Popover>
-          <PopoverTrigger className="w-full px-4 py-2 bg-purple-600/80 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-300 flex justify-center items-center mt-2">
-            {isExistingOffer ? "Change Offer" : "Make Offer"}
-          </PopoverTrigger>
-          <PopoverContent className="p-5 w-72 bg-gray-900 border border-gray-700 rounded-lg shadow-lg">
-            {offer.status === "DECLINED" && isExistingOffer ? (
-              <h3 className="text-lg font-semibold text-red-600">
-                Your offer has been declined
-              </h3>
-            ) : (
-              <></>
-            )}
-            <h3 className="text-lg font-semibold text-white">
-              {isExistingOffer ? "Change your Offer" : "Make an Offer"}
-            </h3>
-
-            <div className="mt-4 space-y-3">
-              <div>
-                <label
-                  htmlFor="offer-amount"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Your Offer (DT)
-                </label>
-                <input
-                  id="offer-amount"
-                  name="price"
-                  type="number"
-                  min="0"
-                  value={offer.price}
-                  placeholder="Enter amount"
-                  onChange={handleChange}
-                  className="w-full mt-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="delivery-days"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Days to Deliver
-                </label>
-                <input
-                  id="delivery-days"
-                  type="number"
-                  name="dayToDeliver"
-                  min="0"
-                  value={offer.dayToDeliver}
-                  placeholder="Number of days"
-                  onChange={handleChange}
-                  className="w-full mt-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
-                />
-              </div>
-
-              {isExistingOffer ? (
-                <>
-                  <button
-                    onClick={handleChangeOffer}
-                    className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-300"
-                  >
-                    Change Offer
-                  </button>
-                  <button
-                    onClick={handleCancelOffer}
-                    className="w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition duration-300 mt-2"
-                  >
-                    Cancel Offer
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-300"
-                >
-                  Submit Offer
-                </button>
-              )}
-            </div>
-          </PopoverContent>
-        </Popover>
+        <></>
       )}
-    </>
+      <PopoverTrigger className="w-full px-4 py-2 bg-purple-600/80 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-300 flex justify-center items-center mt-2">
+        {isExistingOffer ? "Change Offer" : "Make Offer"}
+      </PopoverTrigger>
+      <PopoverContent className="p-5 w-72 bg-gray-900 border border-gray-700 rounded-lg shadow-lg">
+        <h3 className="text-lg font-semibold text-white">
+          {isExistingOffer ? "Change your Offer" : "Make an Offer"}
+        </h3>
+
+        <div className="mt-4 space-y-3">
+          <div>
+            <label
+              htmlFor="offer-amount"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Your Offer (DT)
+            </label>
+            <input
+              id="offer-amount"
+              name="price"
+              type="number"
+              min="0"
+              value={offer.price}
+              placeholder="Enter amount"
+              onChange={handleChange}
+              className="w-full mt-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="delivery-days"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Days to Deliver
+            </label>
+            <input
+              id="delivery-days"
+              type="number"
+              name="dayToDeliver"
+              min="0"
+              value={offer.dayToDeliver}
+              placeholder="Number of days"
+              onChange={handleChange}
+              className="w-full mt-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+            />
+          </div>
+
+          {isExistingOffer ? (
+            <>
+              <button
+                onClick={handleChangeOffer}
+                className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-300"
+              >
+                Change Offer
+              </button>
+              <button
+                onClick={handleCancelOffer}
+                className="w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition duration-300 mt-2"
+              >
+                Cancel Offer
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-300"
+            >
+              Submit Offer
+            </button>
+          )}
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
