@@ -10,9 +10,9 @@ import { OfferedPacks } from "../components/Packages/OfferedPacks.jsx";
 export const Packages = () => {
   const { user } = userStore;
   const [active, setActive] = useState(
-    user.role === "CLIENT" ? "pendingPacks" : null
+    user.role === "CLIENT" ? "pendingPacks" : "offeredPacks"
   );
-
+  console.log(user.role);
   return (
     <div className="container mx-auto py-8 pb-64">
       <PackagesToggleGroup active={active} setActive={setActive} />

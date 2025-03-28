@@ -34,7 +34,7 @@ export const MakeOfferPopover = ({ id }) => {
         toast.success("Offer Changed Successfully!");
         setIsExistingOffer(true);
       } catch (error) {
-        toast.error("Your offer has been already accepted !");
+        toast.info("Your offer has been already accepted !");
         console.error(error);
       }
     },
@@ -65,6 +65,7 @@ export const MakeOfferPopover = ({ id }) => {
       setIsExistingOffer(false);
     } catch (error) {
       console.error(error);
+      toast.info("You cant cancel the offer.It was already accepted");
     }
   };
 

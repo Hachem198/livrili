@@ -5,15 +5,14 @@ import { observer } from "mobx-react-lite";
 import scrollStore from "../store/scrollStore/scrollStore";
 import { ClientHeroSection } from "../components/HeroSection/ClientHeroSection";
 import userStore from "../store/userStore/userStore";
-//import useUser from "../hooks/useUser";
+import useUser from "../hooks/useUser";
 import { DeliveryGuyHeroSection } from "../components/HeroSection/DeliveryGuyHeroSection";
-
 export const Home = observer(() => {
-  //const user = useUser();
+  const user = useUser();
   return (
     <>
-      {userStore.user ? (
-        userStore.user.role === "CLIENT" ? (
+      {user ? (
+        user.role === "CLIENT" ? (
           <ClientHeroSection />
         ) : (
           <DeliveryGuyHeroSection />
@@ -22,9 +21,7 @@ export const Home = observer(() => {
         <AllUsersHeroSection />
       )}
 
-      <CommentCaMarcheSection
-        ref={scrollStore.howItWorksRef}
-      ></CommentCaMarcheSection>
+      <CommentCaMarcheSection ref={scrollStore.howItWorksRef} />
     </>
   );
 });

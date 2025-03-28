@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { X } from "lucide-react";
+import { X, Edit } from "lucide-react";
 import { FaMapMarkerAlt, FaWeightHanging, FaInfoCircle } from "react-icons/fa";
 import userStore from "../store/userStore/userStore.js";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover.jsx";
@@ -8,14 +8,12 @@ import { handleDeletePack } from "../hooks/useDeletePack.js";
 import axios from "axios";
 import { toast } from "sonner";
 
-export const ClientPackageCard = ({ pack, setPacks }) => {
+export const ClientPackageCard = ({ pack, setPacks, onEdit }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const [offers, setOffers] = useState(() => [...pack.offers]);
   const getStatusStyle = (status) => {
     const statusStyles = {
       PENDING: "bg-yellow-600/80 text-yellow-100",
-      APPROVED: "bg-green-600 text-green-100",
-      DELIVERED: "bg-blue-600 text-blue-100",
       OFFERED: "bg-green-600 text-green-100",
     };
 
@@ -55,14 +53,17 @@ export const ClientPackageCard = ({ pack, setPacks }) => {
   );
   return (
     <div className="relative group">
-      {/* Delete button */}
-      <button
-        onClick={() => handleDeletePack(pack.id, pack.status, setPacks)}
-        className="absolute -top-2 -right-2 bg-red-600 hover:bg-red-700 text-white p-1.5 rounded-full z-10 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 transform scale-90 group-hover:scale-100"
-        title="Delete package"
-      >
-        <X size={14} />
-      </button>
+      {/* Action buttons container */}
+      <div className="absolute -top-2 -right-2 flex space-x-2 z-10 opacity-0 group-hover:opacity-100 transition-all duration-200">
+        {/* Delete button */}
+        <button
+          onClick={() => handleDeletePack(pack.id, pack.status, setPacks)}
+          className="bg-red-600 hover:bg-red-700 text-white p-1.5 rounded-full shadow-lg transition-all duration-200 transform scale-90 group-hover:scale-100"
+          title="Delete package"
+        >
+          <X size={14} />
+        </button>
+      </div>
 
       <Popover>
         <PopoverTrigger className="w-full h-full">
