@@ -127,17 +127,6 @@ export const Navbar = observer(() => {
                 </div>
               )}
             </div>
-            <div className="relative">
-              <Bell
-                size={24}
-                className="text-white hover:text-gray-300 cursor-pointer"
-              />
-              {notificationCount > 0 && (
-                <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {notificationCount}
-                </div>
-              )}
-            </div>
           </div>
         ) : (
           <>
