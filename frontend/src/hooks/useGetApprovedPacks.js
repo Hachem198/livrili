@@ -1,5 +1,8 @@
+import userStore from "../store/userStore/userStore";
+import axios from "axios";
+
 export const getApprovedPacks = async () => {
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const apiUrl = import.meta.env.VITE_API_URL;
   let endpoint = "";
   let token = userStore.token;
 

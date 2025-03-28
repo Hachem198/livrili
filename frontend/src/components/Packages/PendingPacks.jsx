@@ -3,27 +3,26 @@ import { ClientPackageCard } from "../ClientPackageCard.jsx";
 import { getPacks } from "../../hooks/useGetPacks.js";
 import { Link } from "react-router-dom";
 
-export const ClientPackagesPage = () => {
+export const PendingPacks = () => {
   const [packs, setPacks] = useState([]);
+  const fetchPacks = async () => {
+    try {
+      const data = await getPacks();
+      const pendingPacks = data.filter(
+        (pack) => pack.status === "PENDING" || pack.status === "OFFERED"
+      );
+      console.log({ data });
+      console.log({ pendingPacks });
+      setPacks(pendingPacks);
+    } catch (error) {
+      console.error("Error fetching packages:", error);
+    }
+  };
   useEffect(() => {
-    const fetchPacks = async () => {
-      try {
-        const data = await getPacks();
-        setPacks(data);
-      } catch (error) {
-        console.error("Error fetching packages:", error);
-      }
-    };
-
     fetchPacks();
   }, []);
   return (
     <div className="container mx-auto py-8 pb-64">
-      <Link to="/packages/approved-packs">
-        <h1 className="text-white underline flex justify-end pb-4">
-          &rarr; Check Approved packs
-        </h1>
-      </Link>
       {packs.length === 0 ? (
         <div className="text-center text-gray-500">No packages available</div>
       ) : (

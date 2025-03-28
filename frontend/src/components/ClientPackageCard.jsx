@@ -21,7 +21,6 @@ export const ClientPackageCard = ({ pack, setPacks }) => {
 
     return statusStyles[status] || "bg-gray-600 text-gray-100";
   };
-  const [offerApproved, setOfferApproved] = useState(false);
   const handleDecision = useCallback(
     async (id, status) => {
       try {
@@ -75,7 +74,7 @@ export const ClientPackageCard = ({ pack, setPacks }) => {
             <div className="bg-gradient-to-r from-indigo-900 to-indigo-800 px-4 py-3 flex justify-between items-center">
               <div className="flex items-center space-x-2">
                 <FaMapMarkerAlt className="text-indigo-300" />
-                <span className="font-medium text-white truncate max-w-[180px]">
+                <span className="font-medium text-white  w-fit">
                   {pack.pickUpLocation} → {pack.dropOffLocation}
                 </span>
               </div>

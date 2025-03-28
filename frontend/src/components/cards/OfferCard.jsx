@@ -1,37 +1,6 @@
 import React from "react";
-
+import { renderStars } from "../../methods/renderStars";
 export const OfferCard = ({ offer, handleDecision }) => {
-  console.log({ offer });
-  const renderStars = () => {
-    const stars = [];
-    const fullStars = Math.floor(offer.rattingCount);
-    const hasHalfStar = offer.rattingCount % 1 >= 0.5;
-
-    for (let i = 0; i < 5; i++) {
-      if (i < fullStars) {
-        stars.push(
-          <span key={i} className="text-yellow-400" aria-hidden="true">
-            ★
-          </span>
-        );
-      } else if (i === fullStars && hasHalfStar) {
-        stars.push(
-          <span key={i} className="text-yellow-400" aria-hidden="true">
-            ⯨
-          </span>
-        );
-      } else {
-        stars.push(
-          <span key={i} className="text-gray-300" aria-hidden="true">
-            ★
-          </span>
-        );
-      }
-    }
-
-    return stars;
-  };
-  console.log({ offer });
   return (
     <div className="w-full max-w-6xl bg-violet-900 text-white rounded-lg shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl">
       <div className="px-4 py-3 sm:px-6">
@@ -74,7 +43,7 @@ export const OfferCard = ({ offer, handleDecision }) => {
                   className="flex"
                   aria-label={`Rating: ${offer.rattingCount} out of 5 stars`}
                 >
-                  {renderStars()}
+                  {renderStars(offer.rattingCount)}
                 </div>
                 <span className="ml-1 text-xs text-violet-300">
                   ({offer.rattingCount})
