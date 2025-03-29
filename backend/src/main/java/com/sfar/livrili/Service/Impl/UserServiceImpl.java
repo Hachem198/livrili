@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 
         List<FieldsError> checkForErrors = ValidateUserRequest(user);
         if (!checkForErrors.isEmpty()) {
-            System.out.println(checkForErrors);
             throw new IllegalArgs("user cannot be registered", checkForErrors);
         }
         Object userToCheck = userMapper.toUser(user);
