@@ -54,7 +54,7 @@ export const Footer = () => {
             <h4 className="text-white font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm">
               <li className="hover:text-blue-400 cursor-pointer transition">
-                support@transporttn.com
+                support@livrili.com
               </li>
               <li className="hover:text-blue-400 cursor-pointer transition">
                 +216 71 234 567

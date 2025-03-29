@@ -57,7 +57,7 @@ export default function SignupForm() {
                   htmlFor="firstName"
                   className="block text-sm font-medium text-gray-200"
                 >
-                  Nom
+                  Last Name
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -81,7 +81,7 @@ export default function SignupForm() {
                   htmlFor="lastName"
                   className="block text-sm font-medium text-gray-200"
                 >
-                  Prenom
+                  First Name
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -131,7 +131,7 @@ export default function SignupForm() {
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-200"
               >
-                Numéro de téléphone
+                Phone number
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -157,7 +157,7 @@ export default function SignupForm() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-200"
               >
-                Mot de passe
+                Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -188,7 +188,7 @@ export default function SignupForm() {
                 </div>
               </div>
               <p className="text-xs text-gray-400">
-                Le mot de passe doit comporter au moins 6 caractères
+                The password must be at least 8 characters long
               </p>
             </div>
 
@@ -198,7 +198,7 @@ export default function SignupForm() {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-200"
               >
-                Confirmer le Mot de passe
+                Confirm Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -350,7 +350,10 @@ export default function SignupForm() {
         <div className="text-center mt-6">
           <p className="text-sm text-gray-300">
             Already have an account?{" "}
-            <a href="#" className="font-medium text-blue-400 hover:underline">
+            <a
+              href="/login"
+              className="font-medium text-blue-400 hover:underline"
+            >
               Login
             </a>
           </p>
