@@ -60,19 +60,21 @@ export const PackageForm = () => {
           {/* Hero Text */}
           <div className="w-full lg:w-1/2 text-white">
             <h1 className="text-4xl font-bold mb-4">
-              Transport simple et efficace
+              Simple and Efficient Transport
             </h1>
             <p className="text-xl text-gray-300 mb-6">
-              Notre plateforme vous connecte avec des transporteurs fiables pour
-              tous vos besoins de livraison.
+              Our platform connects you with reliable carriers for all your
+              delivery needs.
             </p>
             <div className="hidden lg:block">
-              <p className="text-gray-400 mb-2">Nos avantages:</p>
+              <p className="text-gray-400 mb-2">Our Advantages:</p>
               <ul className="list-disc pl-5 text-gray-300">
-                <li className="mb-1">Tarifs compétitifs et transparents</li>
-                <li className="mb-1">Suivi en temps réel de vos colis</li>
-                <li className="mb-1">Réseau de transporteurs vérifiés</li>
-                <li className="mb-1">Assistance client 7j/7</li>
+                <li className="mb-1">Competitive and transparent pricing</li>
+                <li className="mb-1">Real-time tracking of your packages</li>
+                <li className="mb-1">Network of verified carriers</li>
+                <li className="mb-1">
+                  Customer support available 7 days a week
+                </li>
               </ul>
             </div>
           </div>
@@ -81,7 +83,7 @@ export const PackageForm = () => {
           <div className="w-full lg:w-1/2">
             <div className="bg-purple-800/40 ring-purple-700 ring bg-opacity-80 rounded-lg shadow-xl p-6">
               <h2 className="text-2xl font-semibold text-white mb-6 text-center">
-                Demande de transport
+                Transport Request
               </h2>
               <form onSubmit={handleSubmit}>
                 {/*PickUpLocation/DropOffLocation*/}
@@ -92,7 +94,7 @@ export const PackageForm = () => {
                       htmlFor="pickup"
                       className="block text-gray-300 mb-2"
                     >
-                      Adresse de collecte
+                      Pick-up Location
                     </label>
                     <div className="relative">
                       <GeoapifyGeocoderAutocomplete
@@ -122,7 +124,7 @@ export const PackageForm = () => {
                       htmlFor="dropoff"
                       className="block text-gray-300 mb-2"
                     >
-                      Adresse de livraison
+                      Drop-off Location
                     </label>
                     <div className="relative">
                       <GeoapifyGeocoderAutocomplete
@@ -220,7 +222,7 @@ export const PackageForm = () => {
                 {/*Weight*/}
                 <div className="mb-6">
                   <label htmlFor="weight" className="block text-gray-300 mb-2">
-                    Poids du colis (kg)
+                    Package weight (kg)
                   </label>
                   <input
                     type="number"
@@ -241,7 +243,7 @@ export const PackageForm = () => {
                     htmlFor="description"
                     className="block text-gray-300 mb-2"
                   >
-                    Description de la marchandise
+                    Description
                   </label>
                   <textarea
                     id="description"

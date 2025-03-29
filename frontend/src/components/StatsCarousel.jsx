@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 const StatsCarousel = () => {
   const stats = [
-    { value: "500+", label: "Transporteurs" },
-    { value: "1000+", label: "Livraisons" },
+    { value: "500+", label: "Transporters" },
+    { value: "1000+", label: "Deliveries" },
     { value: "24/7", label: "Support" },
     { value: "98%", label: "Satisfaction" },
   ];

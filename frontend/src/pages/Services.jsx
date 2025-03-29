@@ -1,23 +1,23 @@
 import React from "react";
-import { ServiceCard } from "../components/ServiceCard";
-import deliveryPhoto from "../assets/ServiceImage.webp";
+import { ServiceCard } from "../components/cards/ServiceCard.jsx";
+import deliveryPhoto from "../assets/ServiceImage3.jpg";
 
 export const Services = () => {
   const services = [
     {
-      type: "Service déménagement",
+      type: "Moving Service",
       description:
-        "Livrili offre une solution de déménagement, professionnel flexible, Livrili vous permet de choisir entre plusieurs transporteurs. Le client choisit les services dont il a besoin : le démontage, l'emballement, le déménagement, le remontage et l'aménagement.",
+        "Livrili offers a flexible professional moving solution, allowing you to choose from multiple carriers. Customers can select the services they need: disassembly, packing, moving, reassembly, and setup.",
     },
     {
-      type: "Service transport de marchandise",
+      type: "Freight Transport Service",
       description:
-        "Que vous soyez un particulier ou un professionnel, Wassali vous permet d'expédier tout type de marchandise confondus en toute sécurité, grâce à son portefeuille de transporteurs qualifiés. Réduisez le coût de votre transport avec des tarifs compétitifs, grâce à l'optimisation de nos véhicules en retour à vide.",
+        "Whether you're an individual or a professional, Livrili enables you to ship all types of goods securely through its network of qualified carriers. Reduce your transportation costs with competitive rates, thanks to our optimized vehicles for empty return trips.",
     },
     {
-      type: "Service coursier",
+      type: "Courier Service",
       description:
-        "Vous avez oublié un objet chez vous ? Vous n'avez pas le temps de faire la queue pour payer une facture ? Wassali met à votre disposition un service coursier qui va vous permettre de remédier à ces problèmes à travers un coursier qui va faire ses petites courses à votre place.",
+        "Forgot something at home? Don’t have time to wait in line to pay a bill? Livrili provides a courier service that solves these problems by assigning a courier to handle small errands on your behalf.",
     },
   ];
 
@@ -27,17 +27,16 @@ export const Services = () => {
       <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-8 py-16 px-4 md:px-8 lg:px-16">
         <div className="flex flex-col justify-center">
           <h1 className="text-white font-primary text-4xl md:text-5xl lg:text-6xl mb-6 md:mb-8">
-            A Propos Livrili
+            About Livrili
           </h1>
           <div className="max-w-lg">
-            <p className="text-gray-500 text-base md:text-lg">
-              In the fast-paced world of technology and innovation, staying
-              ahead requires continuous learning, adaptability, and a deep
-              understanding of emerging trends. Companies that thrive are those
-              that not only embrace change but actively seek to drive it. From
-              artificial intelligence and machine learning to blockchain and
-              cloud computing, the digital landscape is evolving at an
-              unprecedented rate.
+            <p className="text-white text-base md:text-lg">
+              Livrili is an innovative platform designed to simplify the
+              delivery process by connecting clients with delivery
+              professionals. Whether you're a business needing to ship goods or
+              an individual requiring quick and reliable delivery services,
+              Livrili bridges the gap between customers and delivery partners,
+              making the process seamless for both parties.
             </p>
           </div>
         </div>
@@ -45,14 +44,14 @@ export const Services = () => {
           <img
             src={deliveryPhoto}
             alt="Livrili Delivery Service"
-            className="w-full h-auto max-w-md rounded-3xl shadow-lg object-cover"
+            className="w-full max-h-[400px] max-w-md rounded-3xl shadow-lg object-cover"
           />
         </div>
       </div>
 
       <div className="text-center my-12">
         <h2 className="bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-transparent inline-block">
-          Services de Livrili
+          Livrili Services
         </h2>
       </div>
 

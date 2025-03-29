@@ -5,7 +5,7 @@ import userStore from "../store/userStore/userStore";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const useUser = () => {
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true);
 
   const getUserApi = useCallback(async () => {
     if (!userStore.token) {
@@ -49,6 +49,6 @@ const useUser = () => {
     };
   }, [getUserApi]);
 
-  return loading ? undefined : userStore.user; // Return `undefined` while loading
+  return loading ? undefined : userStore.user;
 };
 export default useUser;

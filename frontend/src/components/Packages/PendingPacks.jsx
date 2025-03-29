@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ClientPackageCard } from "../ClientPackageCard.jsx";
+import { ClientPackageCard } from "../cards/ClientPackageCard.jsx";
 import { getPacks } from "../../hooks/useGetPacks.js";
 import { Link } from "react-router-dom";
 

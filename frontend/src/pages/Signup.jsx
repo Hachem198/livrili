@@ -2,7 +2,7 @@ import React from "react";
 import CompanyLogo from "../assets/CompanyLogo.png";
 import { Link } from "react-router-dom";
 import SignupForm from "../components/form/SignupForm";
-import { Footer } from "../components/Footer";
+import { Footer } from "../components/OtherSections/Footer";
 
 export const Signup = () => {
   return (
