@@ -42,7 +42,7 @@ export default function LoginForm() {
     <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-md p-8 space-y-8 bg-gray-900/40 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-800">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-white">Se Connecter</h1>
+          <h1 className="text-3xl font-bold text-white">Connect</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6 p-12">
@@ -77,7 +77,7 @@ export default function LoginForm() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-200"
               >
-                Mot de passe
+                Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
