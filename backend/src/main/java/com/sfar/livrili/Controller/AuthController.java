@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
 @RequestMapping("v1/api/auth")
 @RequiredArgsConstructor
@@ -73,7 +72,6 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
         }
-         
 
         @Operation(summary = "Get User Info", description = "Retrieves the authenticated user's details.")
         @ApiResponses(value = {
@@ -86,16 +84,18 @@ public class AuthController {
                 User user = userService.getUser(userId);
                 return new ResponseEntity<>(userMapper.ToClientOrDeliveryPerson(user), HttpStatus.OK);
         }
+
         @Operation(summary = "Update User Info", description = "Updates the authenticated user's details.")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "User updated", content = @Content(schema = @Schema(implementation = ModifyAuthRes.class))),
                         @ApiResponse(responseCode = "401", description = "Invalid Token", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
         })
         @PutMapping()
-        public ResponseEntity<ModifyAuthRes> modifyUser(@RequestBody ModifyUserRequestDto modifyUserRequest, HttpServletRequest request) {
+        public ResponseEntity<ModifyAuthRes> modifyUser(@RequestBody ModifyUserRequestDto modifyUserRequest,
+                        HttpServletRequest request) {
                 UUID userId = (UUID) request.getAttribute("userId");
                 User user = userService.modifyUser(modifyUserRequest, userId);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail()) ;
+                UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
                 String token = authenticationService.generateToken(userDetails);
                 AuthResponseDto authResponseDto = AuthResponseDto.builder()
                                 .token(token)
@@ -105,7 +105,7 @@ public class AuthController {
                 ModifyAuthRes modifyAuthRes = ModifyAuthRes.builder()
                                 .authResponseDto(authResponseDto)
                                 .clientOrDeliveryGuy(userMapper.ToClientOrDeliveryPerson(user))
-                .build();
+                                .build();
                 return new ResponseEntity<>(modifyAuthRes, HttpStatus.OK);
         }
 }
