@@ -98,7 +98,7 @@ export const PackageForm = () => {
                     </label>
                     <div className="relative">
                       <GeoapifyGeocoderAutocomplete
-                        placeholder="Entrez l'adresse de collecte"
+                        placeholder="Enter pick-up loaction"
                         className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 hide-clear-button"
                         skipIcons={true}
                         filterByCountryCode={["TN"]}
@@ -128,7 +128,7 @@ export const PackageForm = () => {
                     </label>
                     <div className="relative">
                       <GeoapifyGeocoderAutocomplete
-                        placeholder="Entrez l'adresse de livraison"
+                        placeholder="Enter drop-off location"
                         className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         filterByCountryCode={["TN"]}
                         skipIcons={true}
@@ -252,7 +252,7 @@ export const PackageForm = () => {
                     value={pack.description}
                     onChange={handleChange}
                     className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Décrivez votre colis (type, dimensions, fragilité...)"
+                    placeholder="Describe your package (type, dimensions, fragility...)"
                     required
                   />
                 </div>
