@@ -99,7 +99,7 @@ export const PackageForm = () => {
                     <div className="relative">
                       <GeoapifyGeocoderAutocomplete
                         placeholder="Entrez l'adresse de collecte"
-                        className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 hide-clear-button"
                         skipIcons={true}
                         filterByCountryCode={["TN"]}
                         onUserInput={(place) =>

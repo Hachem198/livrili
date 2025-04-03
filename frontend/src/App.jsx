@@ -9,6 +9,7 @@ import "./index.css";
 import { Toaster } from "sonner";
 import { Packages } from "./pages/Packages";
 import AvailablePackagesPage from "./pages/AvailablePackagesPage";
+import { Profile } from "./pages/Profile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             path="/availablepacks"
             element={<AvailablePackagesPage></AvailablePackagesPage>}
           ></Route>
+          <Route path="/profile" element={<Profile></Profile>}></Route>
         </Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>

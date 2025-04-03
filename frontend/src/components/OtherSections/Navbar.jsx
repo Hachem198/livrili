@@ -114,8 +114,17 @@ export const Navbar = observer(() => {
                       onClick={() => setIsUserMenuOpen(false)}
                     >
                       <FileText size={16} />
-                      <span>Packages</span>
+                      <span>My Packages</span>
                     </Link>
+                    {/* <Link
+                      to="/profile"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-800 w-full text-left"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <User size={16} />
+                      <span>Profile</span>
+                    </Link> */}
+
                     <button
                       onClick={handleLogout}
                       className="flex items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-800 w-full text-left"

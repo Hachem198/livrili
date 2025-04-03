@@ -151,7 +151,10 @@
 .geoapify-autocomplete-input {
   @apply w-full px-4 py-2 bg-blue-950 border border-purple-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500;
 }
-.hide-clear-button .geoapify-clear-button,
-.hide-clear-button button[aria-label="Clear"] {
+.geoapify-close-button {
   display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
 }
