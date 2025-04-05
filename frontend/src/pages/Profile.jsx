@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import userStore from "../store/userStore/userStore";
 import { keys, set } from "mobx";
+import {toast} from "sonner";
 
 export const Profile = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -22,6 +23,7 @@ export const Profile = () => {
     oldPhoneNumberInput:"",
     newPhoneNumberInput:"",
   });
+  const [updated, setUpdated] = useState(false);
 
   const [isEditing, setIsEditing] = useState({
     firstName : false,
@@ -51,11 +53,28 @@ export const Profile = () => {
       });
     }
   };
+  const restInput = () => {
+    setFormData({
+     ...formData,
+     newFirstNameInput: "",
+     newLastNameInput: "",
+     oldEmailInput: "",
+     newEmailInput: "",
+     currentPassword: "",
+     newPassword: "",
+     confirmPassword: "",
+     oldPhoneNumberInput: "",
+     newPhoneNumberInput: "",
+   });
+    
+  }
   const toggleEdit = (field) => {
     setIsEditing({
       ...isEditing,
       [field]: !isEditing[field],
     });
+    restInput();
+    console.log(formData);
     setErrors({});
     setSuccessMessage("");
   };
@@ -108,10 +127,10 @@ export const Profile = () => {
     if (!oldPhoneNumberInput) {
       erros.oldPhoneNumberInput = "Old phone number is required";
     }else if(!phoneRegex.test(oldPhoneNumberInput)) {
-      erros.oldPhoneNumberInput = "Please enter a valid phone number (format: 55-123-456)";
+      erros.oldPhoneNumberInput = "Please enter a valid phone number (format: 55123456)";
     }
     if(!newPhoneNumberInput || !phoneRegex.test(newPhoneNumberInput)) {
-      erros.newPhoneNumberInput = "Please enter a valid phone number (format: 55-123-456)";
+      erros.newPhoneNumberInput = "Please enter a valid phone number (format: 55123456)";
     }
     return erros;
   };
@@ -165,17 +184,31 @@ export const Profile = () => {
   }
   
   if (valid) {
-         const  res = await axios.put(`${apiUrl}/v1/api/auth`, sendData, {
-            headers: { Authorization: `Bearer ${userStore.token}` },
-          })
-          console.log(res)
-          setSuccessMessage(`Your ${field} has been updated successfully!`);
-          setIsEditing({
-            ...isEditing,
-            [field]: false,
-          });
+         try {
+           const  res = await axios.put(`${apiUrl}/v1/api/auth`, sendData, {
+              headers: { Authorization: `Bearer ${userStore.token}` },
+            })
+            //console.log(res.data)
+            //console.log(res.data.clientOrDeliveryGuy)
+           userStore.setToken(res.data.authResponseDto.token);
+           userStore.setUser(res.data.clientOrDeliveryGuy);
+            setSuccessMessage(`Your ${field} has been updated successfully!`);
+            setIsEditing({
+              ...isEditing,
+              [field]: false,
+            });
+            setUpdated(!updated);
           
-        } else {
+         } catch (error) {
+          if(error.response.status === 422) {
+           // console.log(error.response.data);
+            toast.error(error.response.data.fields[0].message);
+            
+          
+         }
+          
+        }     
+       }  else {
       setErrors(fieldErrors);
     }
   };
@@ -197,7 +230,11 @@ export const Profile = () => {
       console.log(error);
     }
   };
-  useEffect(() => {getUser()}, []);
+
+
+  useEffect(() => {
+       getUser();
+    }, [updated]);
   return (
     <div className="p-24">
       <div className="max-w-2xl mx-auto p-6 py-20 rounded-lg shadow-lg border border-gray-700">
