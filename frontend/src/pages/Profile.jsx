@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import  {  useEffect, useState } from "react";
 import userStore from "../store/userStore/userStore";
-import { keys, set } from "mobx";
 import {toast} from "sonner";
 
 export const Profile = () => {
