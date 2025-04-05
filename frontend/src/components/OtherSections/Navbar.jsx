@@ -117,14 +117,14 @@ export const Navbar = observer(() => {
                       <FileText size={16} />
                       <span>My Packages</span>
                     </Link>
-                    {/* <Link
+                    { <Link
                       to="/profile"
                       className="flex items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-800 w-full text-left"
                       onClick={() => setIsUserMenuOpen(false)}
                     >
                       <User size={16} />
                       <span>Profile</span>
-                    </Link> */}
+                    </Link> }
 
                     <button
                       onClick={handleLogout}
