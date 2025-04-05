@@ -37,7 +37,6 @@ export const Navbar = observer(() => {
   };
 
   const handleLogout = () => {
-    console.log("Logging out");
     userStore.setToken("");
     setIsUserMenuOpen(false);
     navigate("/");
@@ -92,9 +91,11 @@ export const Navbar = observer(() => {
           </Link>
         </nav>
       </div>
+      
 
       <div className="hidden md:flex items-center gap-4">
-        {user ? (
+        {
+        user ? (
           <div className="flex items-center gap-6">
             <div className="relative" ref={userMenuRef}>
               <button

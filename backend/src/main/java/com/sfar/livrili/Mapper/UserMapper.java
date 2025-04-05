@@ -62,7 +62,7 @@ public class UserMapper {
         int atIndex = userEmail.indexOf('@');
         String localPart = userEmail.substring(0, atIndex);
         String domain = userEmail.substring(atIndex);
-        String maskedLocalPart = "*".repeat(localPart.length() - 4) + localPart.substring(localPart.length() - 4);
+        String maskedLocalPart = "*".repeat(localPart.length() - 3) + localPart.substring(localPart.length() - 3);
         String maskedEmail = maskedLocalPart + domain;
         if (user.getRole().equals(Role.CLIENT)) {
             return ClientDto.builder()
