@@ -204,6 +204,8 @@ export const Profile = () => {
             toast.error(error.response.data.fields[0].message);
             
           
+         }else{
+          toast.error("You are not allowed here");
          }
           
         }     
@@ -539,6 +541,6 @@ export const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
   );
 };
