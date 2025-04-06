@@ -10,8 +10,11 @@ import { Toaster } from "sonner";
 import { Packages } from "./pages/Packages";
 import AvailablePackagesPage from "./pages/AvailablePackagesPage";
 import { Profile } from "./pages/Profile";
+import userStore from "./store/userStore/userStore";
+import { ErrorPage } from "./pages/ErrorPage";
 
 function App() {
+  const { user } = userStore;
   return (
     <>
       <Toaster richColors position="bottom-right" />
@@ -19,12 +22,27 @@ function App() {
         <Route element={<Layout></Layout>}>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/services" element={<Services></Services>}></Route>
-          <Route path="/packages" element={<Packages></Packages>}></Route>
-          <Route
-            path="/availablepacks"
-            element={<AvailablePackagesPage></AvailablePackagesPage>}
-          ></Route>
-          <Route path="/profile" element={<Profile></Profile>}></Route>
+          {user ? (
+            <Route path="/packages" element={<Packages></Packages>}></Route>
+          ) : (
+            <Route path="/packages" element={<ErrorPage></ErrorPage>}></Route>
+          )}
+          {user ? (
+            <Route
+              path="/availablepacks"
+              element={<AvailablePackagesPage></AvailablePackagesPage>}
+            ></Route>
+          ) : (
+            <Route
+              path="/availablepacks"
+              element={<ErrorPage></ErrorPage>}
+            ></Route>
+          )}
+          {user ? (
+            <Route path="/profile" element={<Profile></Profile>}></Route>
+          ) : (
+            <Route path="/profile" element={<ErrorPage></ErrorPage>}></Route>
+          )}
         </Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
