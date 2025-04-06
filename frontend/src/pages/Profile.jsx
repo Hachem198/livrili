@@ -205,6 +205,7 @@ export const Profile = () => {
             
           
          }else{
+          console.log(error.response.data);
           toast.error("You are not allowed here");
          }
           

@@ -115,7 +115,9 @@ public class UserServiceImpl implements UserService {
                 checkForErrors.add(new FieldsError("newEmail", "New email cannot be empty"));
             } else if (!UserCreationValidation.isEmailValid(user.getNewEmail())) {
                 checkForErrors.add(new FieldsError("newEmail", "New email is invalid"));
-            } else {
+            }else if (userRepository.existsByEmail(user.getNewEmail())) {
+                checkForErrors.add(new FieldsError("newEmail", "Email already exists"));
+            }else {
                 userToModify.setEmail(user.getNewEmail());
             }
         }
