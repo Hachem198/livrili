@@ -14,7 +14,6 @@ import userStore from "./store/userStore/userStore";
 import { ErrorPage } from "./pages/ErrorPage";
 
 function App() {
-  const { user } = userStore;
   return (
     <>
       <Toaster richColors position="bottom-right" />
@@ -22,12 +21,12 @@ function App() {
         <Route element={<Layout></Layout>}>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/services" element={<Services></Services>}></Route>
-          {user ? (
+          {userStore.user ? (
             <Route path="/packages" element={<Packages></Packages>}></Route>
           ) : (
             <Route path="/packages" element={<ErrorPage></ErrorPage>}></Route>
           )}
-          {user ? (
+          {userStore.user ? (
             <Route
               path="/availablepacks"
               element={<AvailablePackagesPage></AvailablePackagesPage>}
@@ -38,7 +37,7 @@ function App() {
               element={<ErrorPage></ErrorPage>}
             ></Route>
           )}
-          {user ? (
+          {userStore.user ? (
             <Route path="/profile" element={<Profile></Profile>}></Route>
           ) : (
             <Route path="/profile" element={<ErrorPage></ErrorPage>}></Route>
