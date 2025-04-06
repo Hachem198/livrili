@@ -2,8 +2,8 @@ import React from "react";
 
 export const ErrorPage = () => {
   return (
-    <div className="flex items-center justify-center p-20  text-gray-100">
-      <div className="text-center px-6 py-8 max-w-md mx-auto rounded-lg  shadow-xl border border-gray-700">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-gray-100">
+      <div className="text-center px-6 py-8 max-w-md mx-auto rounded-lg bg-gray-800 shadow-xl border border-gray-700">
         <div className="mb-6">
           <svg
             className="mx-auto h-16 w-16 text-red-500"

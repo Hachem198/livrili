@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "./Layout";
 import { Home } from "./pages/Home";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { Services } from "./pages/Services";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
@@ -12,42 +12,43 @@ import AvailablePackagesPage from "./pages/AvailablePackagesPage";
 import { Profile } from "./pages/Profile";
 import userStore from "./store/userStore/userStore";
 import { ErrorPage } from "./pages/ErrorPage";
+import { observer } from "mobx-react-lite";
 
-function App() {
+const App = observer(() => {
   return (
     <>
       <Toaster richColors position="bottom-right" />
       <Routes>
-        <Route element={<Layout></Layout>}>
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/services" element={<Services></Services>}></Route>
-          {userStore.user ? (
-            <Route path="/packages" element={<Packages></Packages>}></Route>
-          ) : (
-            <Route path="/packages" element={<ErrorPage></ErrorPage>}></Route>
-          )}
-          {userStore.user ? (
-            <Route
-              path="/availablepacks"
-              element={<AvailablePackagesPage></AvailablePackagesPage>}
-            ></Route>
-          ) : (
-            <Route
-              path="/availablepacks"
-              element={<ErrorPage></ErrorPage>}
-            ></Route>
-          )}
-          {userStore.user ? (
-            <Route path="/profile" element={<Profile></Profile>}></Route>
-          ) : (
-            <Route path="/profile" element={<ErrorPage></ErrorPage>}></Route>
-          )}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+
+          <Route
+            path="/packages"
+            element={userStore.user ? <Packages /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/availablepacks"
+            element={
+              userStore.user ? (
+                <AvailablePackagesPage />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/profile"
+            element={userStore.user ? <Profile /> : <Navigate to="/login" />}
+          />
         </Route>
-        <Route path="/signup" element={<Signup></Signup>}></Route>
-        <Route path="/login" element={<Login></Login>}></Route>
+
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );
-}
+});
 
 export default App;
