@@ -42,9 +42,9 @@ export default function SignupForm() {
     <div className="min-h-screen flex items-center justify-center pb-12">
       <div className="w-full max-w-md p-8 space-y-8 bg-gray-900/40 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-800">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-white">Crée Un Compte</h1>
+          <h1 className="text-3xl font-bold text-white">Create an account</h1>
           <p className="mt-2 text-blue-300">
-            Joindre notre platform aujourdhui
+          Join our platform today
           </p>
         </div>
 
@@ -265,7 +265,7 @@ export default function SignupForm() {
                     htmlFor="gender-men"
                     className="ml-2 block text-sm text-gray-200"
                   >
-                    Homme
+                    Male
                   </label>
                 </div>
                 <div className="flex items-center">
@@ -282,7 +282,7 @@ export default function SignupForm() {
                     htmlFor="gender-women"
                     className="ml-2 block text-sm text-gray-200"
                   >
-                    Femme
+                    Female
                   </label>
                 </div>
               </div>
