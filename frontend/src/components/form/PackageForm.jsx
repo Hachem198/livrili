@@ -260,7 +260,7 @@ export const PackageForm = () => {
                   type="submit"
                   className="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-3 px-4 rounded-md transition duration-300 shadow-lg"
                 >
-                  Soumettre ma demande
+                  Submit my request
                 </button>
               </form>
             </div>

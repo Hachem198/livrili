@@ -15,6 +15,10 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { observer } from "mobx-react-lite";
 
 const App = observer(() => {
+  if (userStore.isLoading) {
+    return <div className="p-4 text-center">Loading...</div>;
+  }
+
   return (
     <>
       <Toaster richColors position="bottom-right" />
