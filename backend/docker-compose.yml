@@ -1,3 +1,4 @@
+
 services:
   mysql:
     image: mysql:8.0
@@ -5,15 +6,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: livrili
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
     ports:
       - "3366:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
   spring-boot-app:
-    image: sfarahmedkhalil/livrili:1.5
+    image: sfarahmedkhalil/livrili:1.23
     container_name: spring_boot_app
     ports:
       - "8080:8080"
@@ -22,11 +23,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/livrili
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: user
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
-      SPRING_JPA_DATABASE_PLATFORM: use org.hibernate.dialect.MySQLDialect
-      JWT_SECRET: qrtKisXDK5Zhr0wSxiA4BN2RElr3qTndF3GOzQhchNA
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_OPEN_IN_VIEW: false
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
 
     depends_on:
       - mysql
