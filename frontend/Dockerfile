@@ -1,5 +1,5 @@
 # Use latest alpine-based Node image
-FROM node:alpine
+FROM node:22-alpine
 
 # Create a non-root user and group
 RUN addgroup -S react && adduser -S react -G react
@@ -9,7 +9,7 @@ RUN mkdir -p /react-app && chown react:react /react-app
 WORKDIR /react-app
 
 # Install dependencies as non-root user
-COPY --chown=react:react package*.json ./
+COPY --chown=react:react package*.json .
 USER react
 RUN npm install --force
 
@@ -17,9 +17,7 @@ RUN npm install --force
 COPY --chown=react:react . .
 
 # Configure Vite to listen on all interfaces
-ENV HOST=0.0.0.0
 EXPOSE 5173
 
-# Start the app
-CMD ["npm", "run", "dev"]
-
+# Start the app with explicit host configuration
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

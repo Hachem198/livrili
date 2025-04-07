@@ -23,10 +23,20 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/livrili
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: user
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create
-
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - mysql
+
+  react-app:
+    image: sfarahmedkhalil/livrili-front:1.9
+    container_name: react_app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - spring-boot-app
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+
+
 
 volumes:
   mysql_data:
