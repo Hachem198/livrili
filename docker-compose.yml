@@ -23,7 +23,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/livrili
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: user
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
     depends_on:
       - mysql
 
